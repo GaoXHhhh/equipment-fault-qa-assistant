@@ -1,0 +1,21 @@
+﻿:: 1. 进入项目文件夹（路径改成你自己的）
+cd /d 自己的路径
+
+:: 2. 创建虚拟环境（只第一次需要）
+python -m venv .venv
+
+:: 3. 激活环境
+.venv\Scripts\activate.bat
+
+:: 4. 安装依赖（只第一次需要，约几分钟）
+python -m pip install -r requirements.txt
+
+:: 5. 填 DeepSeek Key（可选，不填也能启动，走演示模式）
+set DEEPSEEK_API_KEY=sk-你的key
+
+:: 6. 启动
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+
+看到这行就是成功：Uvicorn running on http://127.0.0.1:8000
+
+浏览器打开 http://127.0.0.1:8000  即可
