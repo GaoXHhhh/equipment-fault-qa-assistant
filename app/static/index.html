@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>设备故障问答助手 · 朴食智能AI结算台</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">朴</div>
+    <div class="brand-text">
+      <h1>设备故障问答助手</h1>
+      <p>朴食科技 · PS-AI200 智能AI结算台 &nbsp;|&nbsp; 部署文档 · 设备手册 · 历史工单</p>
+    </div>
+  </div>
+  <div class="chips">
+    <span class="chip" id="chip-llm"><i class="dot"></i><span>模型加载中…</span></span>
+    <span class="chip" id="chip-retrieval"><i class="dot"></i><span>检索模式…</span></span>
+    <span class="chip" id="chip-kb"><i class="dot"></i><span>知识库…</span></span>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <section class="panel">
+      <div class="panel-head">
+        <span>知识库上传</span>
+        <span class="panel-meta" id="kb-count">0 份文档</span>
+      </div>
+      <div class="dropzone" id="dropzone">
+        <div class="dz-icon">↑</div>
+        <p class="dz-title">点击或拖拽文件到这里</p>
+        <p class="dz-hint">支持 PDF / Word / Excel / CSV / TXT / MD，单文件 ≤ 30MB</p>
+        <input type="file" id="file-input" multiple
+               accept=".pdf,.docx,.xlsx,.xls,.csv,.txt,.md">
+      </div>
+      <div class="upload-tip" id="upload-tip"></div>
+    </section>
+
+    <section class="panel docs-panel">
+      <div class="panel-head">
+        <span>已入库文档</span>
+        <span class="panel-meta" id="chunk-count">0 切片</span>
+      </div>
+      <ul class="doc-list" id="doc-list">
+        <li class="doc-empty">暂无文档，上传后自动切片入库</li>
+      </ul>
+    </section>
+
+    <section class="panel feedback-panel">
+      <div class="panel-head"><span>反馈统计</span></div>
+      <div class="stats" id="feedback-stats">
+        <div class="stat"><strong>0</strong><span>总反馈</span></div>
+        <div class="stat"><strong>0%</strong><span>有用率</span></div>
+        <div class="stat"><strong>0</strong><span>待优化</span></div>
+      </div>
+    </section>
+  </aside>
+
+  <main class="main">
+    <div class="chat" id="chat">
+      <div class="empty-state" id="empty-state">
+        <div class="empty-mark">朴</div>
+        <h2>现场有故障，直接描述现象</h2>
+        <p>回答只基于已上传的部署文档、设备手册和历史工单，并标注出处，方便核对原文。</p>
+        <div class="examples" id="examples">
+          <button class="example">结算台识别菜品总是出错，怎么排查？</button>
+          <button class="example">称重数值一直跳动，无法稳定</button>
+          <button class="example">设备提示 E10 离线，网络怎么查？</button>
+          <button class="example">银行内网部署需要注意什么？</button>
+          <button class="example">小票打印机不出纸怎么办？</button>
+          <button class="example">校园一卡通刷卡没有反应</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="composer">
+      <div class="composer-box">
+        <textarea id="question" rows="1" placeholder="描述设备现象或故障码，例如：结算台提示 E05，称重零点漂移怎么校准？"></textarea>
+        <button id="send" class="send-btn" title="发送（Enter）">发送</button>
+      </div>
+      <div class="composer-hint">
+        <span>Enter 发送 · Shift + Enter 换行</span>
+        <span id="composer-status"></span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <h3 id="modal-title">文档切片</h3>
+        <p id="modal-sub"></p>
+      </div>
+      <button class="modal-close" id="modal-close">×</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

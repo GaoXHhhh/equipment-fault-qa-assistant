@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.env
+.idea/
+.venv/
+venv/
+data/kb.sqlite3
+data/kb.sqlite3-wal
+data/kb.sqlite3-shm
+data/uploads/*
+data/*.log
+~$*
